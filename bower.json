@@ -1,0 +1,32 @@
+{
+  "name": "baasic-markdowneditor",
+  "authors": [
+    "Nicolas Chaulet <n.chaulet@gmail.com>",
+    "Denis Susac <denis@mono-software.com>"
+  ],
+  "keywords": [
+    "polymer",
+    "web-components",
+    "baasic",
+    "editor",
+    "markdown",
+    "article",
+    "login"
+  ],
+  "description": "Baasic markdown editor with preview.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#>=0.3.3",
+    "marked": "~0.3.2",
+    "codemirror": "~4.4.0",
+    "core-overlay": "Polymer/core-overlay#>=0.3.3",
+    "github-markdown-css": "~1.0.1"
+  }
+}
