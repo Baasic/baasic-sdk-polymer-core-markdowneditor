@@ -1,25 +1,25 @@
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../core-overlay/core-overlay.html" />
-<link rel="import" href="markdown-preview.html" />
+<link rel="import" href="baasic-markdownpreview.html" />
 
 <!--
 Provides a markdown editor with preview. (ghost inspired)
 This component use Codemirror as editor and marked.js for parse markdown.
 Example:
 
-    <markdown-editor id="editor">
+    <baasic-markdowneditor id="editor">
     # H1
 
     Lipsum ...
-    </markdown-editor>
+    </baasic-markdowneditor>
 
-@element markdown-editor
+@element baasic-markdowneditor
 @homepage http://nchaulet.github.io/markdown-editor/
 -->
-<polymer-element name="markdown-editor" attributes="value" noscript>
+<polymer-element name="baasic-markdowneditor" attributes="value" noscript>
     <template>
         <link rel="stylesheet" href="../codemirror/lib/codemirror.css">
-        <link rel="stylesheet" type="text/css" href="markdown-editor.css"/>
+        <link rel="stylesheet" type="text/css" href="baasic-markdowneditor.css"/>
         <div id="container" layout horizontal>
             <div class="block">
                 <span id="help" on-click="{{ help }}">?</span>
@@ -28,7 +28,7 @@ Example:
             </div>
             <div class="block">
                 <h2 class="info">Preview</h2>
-                <markdown-preview id="preview" value="{{ value }}"/>
+                <baasic-markdownpreview id="preview" value="{{ value }}"/>
             </div>
         </div>
         <core-overlay backdrop="true" id="help-dialog">
@@ -46,7 +46,7 @@ Example:
     <script src="../codemirror/lib/codemirror.js"></script>
     <script src="../codemirror/mode/markdown/markdown.js"></script>
     <script>
-        Polymer('markdown-editor', {
+        Polymer('baasic-markdowneditor', {
             observe: {
                 'model.value': 'modelValueChanged'
             },
