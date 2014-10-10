@@ -23,10 +23,10 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.3",
+    "polymer": "Polymer/polymer#>=0.4.2",
     "marked": "~0.3.2",
     "codemirror": "~4.4.0",
-    "core-overlay": "Polymer/core-overlay#>=0.3.3",
+    "core-overlay": "Polymer/core-overlay#>=0.4.2",
     "github-markdown-css": "~1.0.1"
   }
 }
