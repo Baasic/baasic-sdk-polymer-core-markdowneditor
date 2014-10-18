@@ -1,32 +1,49 @@
-# Markdown Editor webcomponent
-----
+# &lt;baasic-markdowneditor&gt;
 
-Baasic markdown editor with preview, based on the work by Nicolas Chaulet.
+> [Baasic](http://www.baasic.com) markdown editor Web Component.
 
-## Instalation
+## Demo
 
-With bower
+[Check it live!](http://demo.baasic.com/polymer/)
 
-```shell
-bower install baasic-markdowneditor
+## Install
+
+Install the component using [Bower](http://bower.io/):
+
+```sh
+$ bower install baasic-markdowneditor --save
 ```
 
-## Usage 
+Or download the source code and install it manually in your projects.
 
-In your head include component and platform.js
-```html
-<head>
-	<script src="bower_components/platform/platform.js"></script>
-	<link rel="import" href="bower_components/baasic-markdowneditor/baasic-markdowneditor.html" />
-</head>
-```
+## Usage
 
-Then use components
-```html
-<baasic-markdowneditor id="editor">
-# Title
+1. Import Web Components' polyfill:
 
-`var editorValue = document.getElementById('editor').value;`
+    ```html
+    <script src="bower_components/platform/platform.js"></script>
+    ```
 
-</baasic-markdowneditor>
-```
+2. Import Custom Element:
+
+    ```html
+    <link rel="import" href="bower_components/baasic-markdowneditor/baasic-markdowneditor.html">
+    ```
+
+3. Start using it!
+
+    ```html
+    <baasic-markdowneditor id="editor"></baasic-markdowneditor>
+    ```
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## History
+
+For detailed changelog, check [Releases](https://github.com/baasic/baasic-sdk-polymer-core-markdowneditor/releases).

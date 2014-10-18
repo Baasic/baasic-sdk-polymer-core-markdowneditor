@@ -1,10 +1,6 @@
 {
   "name": "baasic-markdowneditor",
-  "authors": [
-    "Nicolas Chaulet <n.chaulet@gmail.com>",
-    "Denis Susac <denis@mono-software.com>"
-  ],
-  "keywords": [
+    "keywords": [
     "polymer",
     "web-components",
     "baasic",
