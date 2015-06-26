@@ -1,22 +1,26 @@
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../core-overlay/core-overlay.html" />
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="baasic-markdownpreview.html" />
 
 <!--
-Provides a markdown editor. (ghost inspired)
-This component use Codemirror as editor and marked.js for parse markdown.
+An element providing a solution to no problem in particular.
+
 Example:
 
-    <baasic-markdowneditor id="editor">
-    # H1
+    <baasic-markdowneditor></baasic-markdowneditor>
 
-    Lipsum ...
-    </baasic-markdowneditor>
-
-@element baasic-markdowneditor
-@homepage http://nchaulet.github.io/markdown-editor/
+@demo
 -->
-<polymer-element name="baasic-markdowneditor" attributes="value">
+<dom-module id="baasic-markdowneditor">
+
     <template>
         <link rel="stylesheet" href="../codemirror/lib/codemirror.css">
         <link rel="stylesheet" type="text/css" href="baasic-markdowneditor.css" />
@@ -26,71 +30,82 @@ Example:
                 <div id="editor"></div>
             </div>
             <!-- preview pane is removed; turn on if you need instant markdown preview.
-                <div class="block">
+            <div class="block">
                 <h2 class="info">Preview</h2>
-                <baasic-markdownpreview id="preview" value="{{ value }}"/>
-            </div> -->
+                <baasic-markdownpreview id="preview" value="{{value}}" />
+            </div>  -->
         </div>
     </template>
-
     <script src="../codemirror/lib/codemirror.js"></script>
     <script src="../codemirror/mode/markdown/markdown.js"></script>
-    <script>
-        Polymer('baasic-markdowneditor', {
-            observe: {
-                'model.value': 'modelValueChanged'
-            },
-            /**
-            * This property return current markdown value
-            *
-            * @attribute value
-            * @type string
-            * @default ""
-            */
-            value: '',
-            ready: function () {
-                var markdownElement = this.shadowRoot.getElementById('editor');
 
-                var editor = CodeMirror(markdownElement, {
-                    mode: "markdown",
-                    lineNumbers: false
-                });
+</dom-module>
 
-                var _this = this;
+<script>
 
-                editor.on('changes', function () {
-                    _this.model.setValue(editor.getValue());
-                });
+  Polymer({
 
-                this.modelValueChanged = function (oldValue, newValue) {
-                    if (editor.getValue() != newValue) {
-                        editor.setValue(newValue);
-                    }
+    is: 'baasic-markdowneditor',
 
-                    _this.value = newValue;
-                };
+    properties: {
+        value: {
+            type: String,
+            notify: true,
+            observer: 'valueChanged'
+        },
+        model: {
+            type: Object,
+            notify: true
+        }
 
-                // INIT
-                this.model = new MarkdownEditorModel(this.innerHTML);
-                this.editor = editor;
-            },
-            refresh: function () {
-                var editor = this.editor;
-                setTimeout(function () { editor.refresh(); }, 100);
-            },
-            valueChanged: function (oldValue, newValue) {
-                this.model.setValue(newValue);
-            }
+    },
+    editor: null,
+
+    // Element Lifecycle
+    ready: function() {
+        var markdownElement = this.$.editor;
+        
+        editor = CodeMirror(markdownElement, {
+            mode: "markdown",
+            lineNumbers: false
         });
 
-        var MarkdownEditorModel = function (value) {
-            this.value = value;
-        };
+        var _this = this;
 
-        MarkdownEditorModel.prototype.setValue = function (value) {
-            if (value != this.value) {
-                this.value = value;
-            }
-        };
-    </script>
-</polymer-element>
+        editor.on('changes', function () {
+            _this.model.setValue(editor.getValue());
+            _this.modelValueChanged(editor.getValue());
+        });
+
+        // INIT
+        this.model = new MarkdownEditorModel(this.value);
+    },
+
+    modelValueChanged: function (newValue) {
+        if (editor.getValue() != newValue) {
+            editor.setValue(newValue);
+        }
+        this.value = newValue;
+    },
+
+    refresh: function () {
+        var editor = this.editor;
+        setTimeout(function () { editor.refresh(); }, 100);
+    },
+
+    valueChanged: function (oldValue, newValue) {
+        this.model.setValue(newValue);
+    }
+  });
+
+  var MarkdownEditorModel = function (value) {
+      this.value = value;
+  };
+
+  MarkdownEditorModel.prototype.setValue = function (value) {
+      if (value != this.value) {
+         this.value = value;
+      }
+  };
+
+</script>

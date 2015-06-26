@@ -1,28 +1,29 @@
 {
   "name": "baasic-markdowneditor",
-    "keywords": [
-    "polymer",
-    "web-components",
-    "baasic",
-    "editor",
-    "markdown",
-    "article",
-    "login"
+  "version": "1.0.0",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
   ],
-  "description": "Baasic markdown editor with preview.",
-  "license": "MIT",
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "seed"
+  ],
+  "main": "baasic-markdowneditor.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "/.*",
+    "/test/",
+    "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.4.2",
-    "marked": "~0.3.2",
-    "codemirror": "~4.4.0",
-    "core-overlay": "Polymer/core-overlay#>=0.4.2",
-    "github-markdown-css": "~1.0.1"
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
   }
 }

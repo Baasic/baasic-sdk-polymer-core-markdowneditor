@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../core-overlay/core-overlay.html" />
 
 <!--
 Provides a preview. 
@@ -11,7 +10,8 @@ Example:
 @element markdown-editor
 @homepage http://nchaulet.github.io/markdown-editor/
 -->
-<polymer-element name="baasic-markdownpreview" attributes="value">
+
+<dom-module id="baasic-markdownpreview">
     <template>
         <link rel="stylesheet" type="text/css"  href="../github-markdown-css/github-markdown.css" />
         <div id="preview" class="markdown-body"></div>
@@ -19,13 +19,20 @@ Example:
 
     <script src="../marked/lib/marked.js"></script>
     <script>
-        Polymer('baasic-markdownpreview', {
-            ready: function() {
-                this.previewElement  = this.shadowRoot.getElementById('preview');
+        Polymer({
+            is: 'baasic-markdownpreview',
+            properties: {
+                value: {
+                    type: String,
+                    notify: true,
+                    observer: 'valueChanged'
+                }
             },
-            valueChanged: function(oldValue, newValue) {
-                this.previewElement.innerHTML  = marked(newValue);
+            ready: function() {
+            },
+            valueChanged: function (newValue, oldValue) {
+                this.$.preview.innerHTML = marked(newValue);
             }
         });
     </script>
-</polymer-element>
+</dom-module>
