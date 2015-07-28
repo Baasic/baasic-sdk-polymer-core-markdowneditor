@@ -11,14 +11,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="baasic-markdownpreview.html" />
 
 <!--
-An element providing a solution to no problem in particular.
-
+Provides a markdown editor. (ghost inspired)
+This component use Codemirror as editor and marked.js for parse markdown. Modified by Baasic team to fit BaaS scenarios.
 Example:
 
-    <baasic-markdowneditor></baasic-markdowneditor>
+    <baasic-markdowneditor id="editor">
+    # H1
 
+    Lipsum ...
+    </baasic-markdowneditor>
+
+@element baasic-markdowneditor
 @demo
+@homepage http://nchaulet.github.io/markdown-editor/
 -->
+
 <dom-module id="baasic-markdowneditor">
 
     <template>
@@ -44,22 +51,32 @@ Example:
 <script>
 
   Polymer({
-
     is: 'baasic-markdowneditor',
-
     properties: {
+        /**
+        * Editor value - text to be shown.
+        */
         value: {
             type: String,
             notify: true,
             observer: 'valueChanged'
         },
+        /**
+        * Editor model. Used to wrap the editor content, so value property can be synced with all changes. 
+        */
         model: {
             type: Object,
             notify: true
         }
-
     },
+    /**
+    * Reference to editor control. 
+    */
     editor: null,
+    /**
+    * Observers for model value change. 
+    */
+    observers: ['modelValueChanged(model.value)'],
 
     // Element Lifecycle
     ready: function() {
@@ -73,28 +90,36 @@ Example:
         var _this = this;
 
         editor.on('changes', function () {
-            _this.model.setValue(editor.getValue());
-            _this.modelValueChanged(editor.getValue());
+            _this.model.setValue(editor.getValue(), _this);
         });
 
-        // INIT
         this.model = new MarkdownEditorModel(this.value);
+        this.editor = editor;
     },
 
+    /**
+    * Handles model value change event. 
+    */
     modelValueChanged: function (newValue) {
-        if (editor.getValue() != newValue) {
-            editor.setValue(newValue);
+        if (newValue!=null) {
+            if (editor.getValue() != newValue) {
+                editor.setValue(newValue);
+            }
+            this.value = newValue;
         }
-        this.value = newValue;
     },
-
+    /**
+    * Refreshes the editor content.
+    */
     refresh: function () {
         var editor = this.editor;
         setTimeout(function () { editor.refresh(); }, 100);
     },
-
-    valueChanged: function (oldValue, newValue) {
-        this.model.setValue(newValue);
+    /**
+    * Fired when value property is changed.
+    */
+    valueChanged: function (newValue, oldValue) {
+        this.model.setValue(newValue, this);
     }
   });
 
@@ -102,9 +127,11 @@ Example:
       this.value = value;
   };
 
-  MarkdownEditorModel.prototype.setValue = function (value) {
+  MarkdownEditorModel.prototype.setValue = function (value, component) {
       if (value != this.value) {
          this.value = value;
+         //path change notification, https://www.polymer-project.org/1.0/docs/devguide/properties.html#set-path
+         component.notifyPath('model.value', this.value);
       }
   };
 
