@@ -61,18 +61,7 @@ Example:
             notify: true,
             observer: 'valueChanged'
         },
-        /**
-        * Editor model. Used to wrap the editor content, so value property can be synced with all changes. 
-        */
-        model: {
-            type: Object,
-            notify: true
-        }
     },
-    /**
-    * Reference to editor control. 
-    */
-    editor: null,
     /**
     * Observers for model value change. 
     */
@@ -82,7 +71,7 @@ Example:
     ready: function() {
         var markdownElement = this.$.editor;
         
-        editor = CodeMirror(markdownElement, {
+        var editor = CodeMirror(markdownElement, {
             mode: "markdown",
             lineNumbers: false
         });
@@ -93,20 +82,18 @@ Example:
             _this.model.setValue(editor.getValue(), _this);
         });
 
+        // Handles model value change event
+        this.modelValueChanged = function (newValue) {
+            if (newValue != null) {
+                if (editor.getValue() != newValue) {
+                    editor.setValue(newValue);
+                }
+                this.value = newValue;
+            }
+        };
+
         this.model = new MarkdownEditorModel(this.value);
         this.editor = editor;
-    },
-
-    /**
-    * Handles model value change event. 
-    */
-    modelValueChanged: function (newValue) {
-        if (newValue!=null) {
-            if (editor.getValue() != newValue) {
-                editor.setValue(newValue);
-            }
-            this.value = newValue;
-        }
     },
     /**
     * Refreshes the editor content.
